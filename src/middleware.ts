@@ -1,5 +1,10 @@
-import { auth } from "@/lib/auth";
+import NextAuth from "next-auth";
 import { NextResponse } from "next/server";
+
+const { auth } = NextAuth({
+  session: { strategy: "jwt" },
+  providers: [],
+});
 
 const publicRoutes = ["/", "/login", "/register", "/forgot-password", "/reset-password"];
 const authRoutes = ["/login", "/register", "/forgot-password", "/reset-password"];
