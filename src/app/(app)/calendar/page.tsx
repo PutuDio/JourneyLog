@@ -6,7 +6,7 @@ import { UpcomingView } from "@/components/calendar/views/upcoming-view";
 import { StickyWallView } from "@/components/calendar/views/sticky-wall";
 
 export const metadata = {
-  title: "Calendar | JourneyLog",
+  title: "Kalender & Aktivitas | JourneyLog",
 };
 
 export default async function CalendarPage({
@@ -32,9 +32,9 @@ export default async function CalendarPage({
   }
 
   return (
-    <div className="flex h-[calc(100vh-(--spacing(20)))] md:h-[calc(100vh-(--spacing(12)))] bg-background -mx-4 -my-6 md:mx-0 md:my-0 rounded-xl overflow-hidden border">
-      <TaskSidebar lists={taskLists || []} tags={[]} />
-      <div className="flex-1 bg-muted/20 p-6 overflow-auto">
+    <div className="flex h-[calc(100vh-140px)] md:h-[calc(100vh-100px)] bg-card rounded-2xl overflow-hidden border border-outline-variant/30 shadow-(--shadow-md)">
+      <TaskSidebar lists={safeLists} tags={[]} />
+      <div className="flex-1 bg-surface-container-low/40 p-4 md:p-6 overflow-auto">
         {content}
       </div>
     </div>

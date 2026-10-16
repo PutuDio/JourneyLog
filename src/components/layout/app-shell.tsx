@@ -33,18 +33,21 @@ export function AppShell({
   const pathname = usePathname();
 
   return (
-    <div className="min-h-screen bg-background pb-20 md:pb-0 md:pl-64">
-      <aside className="fixed bottom-0 left-0 right-0 z-40 border-t bg-card/95 backdrop-blur md:bottom-auto md:top-0 md:flex md:h-screen md:w-64 md:flex-col md:border-r md:border-t-0">
-        <div className="hidden border-b p-4 md:block">
-          <Link href="/dashboard" className="text-lg font-bold text-primary">
+    <div className="min-h-screen bg-background pb-20 md:pb-0 md:pl-72" suppressHydrationWarning>
+      {/* Sidebar */}
+      <aside className="fixed bottom-0 left-0 right-0 z-40 border-t border-outline-variant/30 bg-card/95 backdrop-blur-lg md:bottom-auto md:top-0 md:flex md:h-screen md:w-72 md:flex-col md:border-r md:border-t-0 md:shadow-(--shadow-sm)">
+        {/* Logo area - desktop */}
+        <div className="hidden px-6 py-6 md:block">
+          <Link href="/dashboard" className="text-xl font-bold text-primary tracking-tight">
             JourneyLog
           </Link>
           {userName && (
-            <p className="mt-1 truncate text-sm text-muted-foreground">Halo, {userName}</p>
+            <p className="mt-2 truncate text-sm text-muted-foreground">Halo, {userName} 👋</p>
           )}
         </div>
 
-        <nav className="flex items-center justify-around px-2 py-2 md:flex-1 md:flex-col md:items-stretch md:gap-1 md:p-4">
+        {/* Navigation */}
+        <nav className="flex items-center justify-around px-2 py-2 md:flex-1 md:flex-col md:items-stretch md:gap-1 md:px-4 md:py-0">
           {navItems.map((item) => {
             const active =
               pathname === item.href ||
@@ -58,10 +61,10 @@ export function AppShell({
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "flex flex-col items-center gap-0.5 rounded-lg px-3 py-2 text-xs font-medium transition-colors md:flex-row md:gap-3 md:text-sm",
+                  "flex flex-col items-center gap-0.5 rounded-xl px-3 py-2.5 text-xs font-medium transition-all duration-200 md:flex-row md:gap-3 md:text-sm",
                   active
-                    ? "bg-primary/10 text-primary"
-                    : "text-muted-foreground hover:bg-accent hover:text-foreground"
+                    ? "bg-primary-container text-primary font-bold"
+                    : "text-muted-foreground hover:bg-surface-container-high hover:text-foreground"
                 )}
               >
                 <Icon className="h-5 w-5" />
@@ -71,9 +74,10 @@ export function AppShell({
           })}
         </nav>
 
-        <div className="hidden p-4 md:block">
+        {/* Logout - desktop */}
+        <div className="hidden px-6 pb-6 md:block">
           <form action={logoutAction}>
-            <Button type="submit" variant="outline" className="w-full gap-2">
+            <Button type="submit" variant="outline" size="sm" className="w-full gap-2">
               <LogOut className="h-4 w-4" />
               Keluar
             </Button>
@@ -81,11 +85,13 @@ export function AppShell({
         </div>
       </aside>
 
-      <main className="mx-auto max-w-4xl px-4 py-6">{children}</main>
+      {/* Main content */}
+      <main className="mx-auto max-w-250 px-6 py-8">{children}</main>
 
+      {/* FAB */}
       <Link
         href="/notes/new"
-        className="fixed bottom-20 right-4 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition hover:bg-primary/90 md:bottom-8"
+        className="fixed bottom-24 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-(--shadow-lg) transition-all duration-200 hover:bg-[#004d5c] hover:shadow-[0_12px_32px_rgba(0,0,0,0.18)] active:scale-95 md:bottom-8"
         aria-label="Buat catatan baru"
       >
         <Plus className="h-6 w-6" />

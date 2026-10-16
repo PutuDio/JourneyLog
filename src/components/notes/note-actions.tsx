@@ -25,7 +25,7 @@ export function NoteActions({
         toast.error(result.error);
         return;
       }
-      toast.success(isArchived ? "Catatan dipulihkan" : "Catatan diarsipkan");
+      toast.success(isArchived ? "Catatan dipulihkan dari arsip" : "Catatan berhasil diarsipkan");
       router.push(isArchived ? "/notes" : "/notes/archived");
       router.refresh();
     });
@@ -39,17 +39,17 @@ export function NoteActions({
         toast.error(result.error);
         return;
       }
-      toast.success("Catatan dihapus");
+      toast.success("Catatan berhasil dihapus");
       router.push("/notes");
       router.refresh();
     });
   }
 
   return (
-    <div className="flex flex-wrap gap-2">
+    <div className="flex flex-wrap items-center gap-2.5">
       <Button variant="outline" size="sm" asChild>
         <Link href={`/notes/${noteId}/edit`}>
-          <Pencil className="h-4 w-4" />
+          <Pencil className="h-4 w-4 mr-1.5" />
           Edit
         </Link>
       </Button>
@@ -61,18 +61,23 @@ export function NoteActions({
       >
         {isArchived ? (
           <>
-            <ArchiveRestore className="h-4 w-4" />
+            <ArchiveRestore className="h-4 w-4 mr-1.5 text-primary" />
             Pulihkan
           </>
         ) : (
           <>
-            <Archive className="h-4 w-4" />
+            <Archive className="h-4 w-4 mr-1.5" />
             Arsipkan
           </>
         )}
       </Button>
-      <Button variant="destructive" size="sm" onClick={handleDelete} disabled={pending}>
-        <Trash2 className="h-4 w-4" />
+      <Button
+        variant="destructive"
+        size="sm"
+        onClick={handleDelete}
+        disabled={pending}
+      >
+        <Trash2 className="h-4 w-4 mr-1.5" />
         Hapus
       </Button>
     </div>

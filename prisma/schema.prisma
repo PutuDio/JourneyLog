@@ -90,9 +90,13 @@ model Note {
   id         String      @id @default(cuid())
   userId     String      @map("user_id")
   categoryId String      @map("category_id")
-  title      String
-  content    String      @db.Text
-  isArchived Boolean     @default(false) @map("is_archived")
+  title           String
+  content         String      @db.Text
+  locationName    String?     @map("location_name")
+  locationAddress String?     @map("location_address")
+  latitude        Float?
+  longitude       Float?
+  isArchived      Boolean     @default(false) @map("is_archived")
   createdAt  DateTime    @default(now()) @map("created_at")
   updatedAt  DateTime    @updatedAt @map("updated_at")
   user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)

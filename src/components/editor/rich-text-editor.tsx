@@ -37,7 +37,7 @@ export function RichTextEditor({
     editorProps: {
       attributes: {
         class:
-          "prose prose-sm max-w-none min-h-[200px] rounded-lg border bg-background px-3 py-2 focus:outline-none dark:prose-invert",
+          "prose prose-sm md:prose-base max-w-none min-h-[240px] p-4 focus:outline-none dark:prose-invert",
       },
     },
   });
@@ -51,8 +51,8 @@ export function RichTextEditor({
   if (!editor) return null;
 
   return (
-    <div className="space-y-2">
-      <div className="flex flex-wrap gap-1 rounded-lg border bg-muted/30 p-1">
+    <div className="rounded-2xl border border-outline-variant/40 bg-surface-bright shadow-(--shadow-sm) focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20 overflow-hidden transition-all duration-200">
+      <div className="flex flex-wrap items-center gap-1 border-b border-outline-variant/30 bg-surface-container-low/60 p-2">
         <ToolbarButton
           active={editor.isActive("bold")}
           onClick={() => editor.chain().focus().toggleBold().run()}
@@ -65,6 +65,7 @@ export function RichTextEditor({
           icon={<Italic className="h-4 w-4" />}
           label="Italic"
         />
+        <div className="h-4 w-px bg-outline-variant/40 mx-1" />
         <ToolbarButton
           active={editor.isActive("heading", { level: 2 })}
           onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
@@ -90,7 +91,9 @@ export function RichTextEditor({
           label="Checklist"
         />
       </div>
-      <EditorContent editor={editor} />
+      <div className="p-2">
+        <EditorContent editor={editor} />
+      </div>
     </div>
   );
 }
@@ -109,9 +112,13 @@ function ToolbarButton({
   return (
     <Button
       type="button"
-      variant={active ? "secondary" : "ghost"}
+      variant="ghost"
       size="icon"
-      className="h-8 w-8"
+      className={`h-8 w-8 rounded-lg transition-colors ${
+        active
+          ? "bg-primary-container text-on-primary-container font-semibold"
+          : "text-muted-foreground hover:bg-surface-container hover:text-foreground"
+      }`}
       onClick={onClick}
       aria-label={label}
     >

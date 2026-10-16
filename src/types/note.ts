@@ -8,6 +8,11 @@ const noteInclude = {
 
 export type NoteWithRelations = Prisma.NoteGetPayload<{
   include: typeof noteInclude;
-}>;
+}> & {
+  locationName?: string | null;
+  locationAddress?: string | null;
+  latitude?: number | null;
+  longitude?: number | null;
+};
 
 export { noteInclude };

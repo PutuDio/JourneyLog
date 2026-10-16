@@ -43,20 +43,20 @@ export function NotesSearch({
   );
 
   return (
-    <div className={`space-y-3 ${pending ? "opacity-70" : ""}`}>
+    <div className={`space-y-3 transition-opacity ${pending ? "opacity-60" : ""}`}>
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+        <Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
         <Input
-          className="pl-9"
-          placeholder="Cari judul, isi, tag, kategori..."
+          className="pl-10 h-11 rounded-xl bg-surface-container-low border-outline-variant/40 focus:border-primary focus:bg-card text-sm"
+          placeholder="Cari judul, isi, tag, atau kategori..."
           defaultValue={q}
           onChange={(e) => updateParams("q", e.target.value)}
         />
       </div>
-      <div className="grid grid-cols-2 gap-2">
+      <div className="grid grid-cols-2 gap-3">
         <Select value={categoryId} onValueChange={(v) => updateParams("category", v)}>
-          <SelectTrigger>
-            <SelectValue placeholder="Kategori" />
+          <SelectTrigger className="h-11 rounded-xl bg-surface-container-low border-outline-variant/40 focus:border-primary">
+            <SelectValue placeholder="Semua kategori" />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">Semua kategori</SelectItem>
@@ -68,8 +68,8 @@ export function NotesSearch({
           </SelectContent>
         </Select>
         <Select value={tagId} onValueChange={(v) => updateParams("tag", v)}>
-          <SelectTrigger>
-            <SelectValue placeholder="Tag" />
+          <SelectTrigger className="h-11 rounded-xl bg-surface-container-low border-outline-variant/40 focus:border-primary">
+            <SelectValue placeholder="Semua tag" />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">Semua tag</SelectItem>

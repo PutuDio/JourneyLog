@@ -28,6 +28,13 @@ export function AuthForm({ mode, token }: { mode: AuthMode; token?: string }) {
     reset: "Reset kata sandi",
   };
 
+  const subtitles: Record<AuthMode, string> = {
+    login: "Masuk untuk melanjutkan catatanmu.",
+    register: "Daftar dan dapatkan kategori Travel, Daily, Gym.",
+    forgot: "Masukkan email untuk menerima link reset.",
+    reset: "Masukkan password baru.",
+  };
+
   async function handleSubmit(formData: FormData) {
     setError(null);
     startTransition(async () => {
@@ -61,16 +68,18 @@ export function AuthForm({ mode, token }: { mode: AuthMode; token?: string }) {
   }
 
   return (
-    <div className="mx-auto w-full max-w-md rounded-xl border bg-card p-6 shadow-sm">
-      <h1 className="text-2xl font-bold">{titles[mode]}</h1>
-      <p className="mt-1 text-sm text-muted-foreground">
-        {mode === "login" && "Masuk untuk melanjutkan catatanmu."}
-        {mode === "register" && "Daftar dan dapatkan kategori Travel, Daily, Gym."}
-        {mode === "forgot" && "Masukkan email untuk menerima link reset."}
-        {mode === "reset" && "Masukkan password baru."}
+    <div className="mx-auto w-full max-w-md rounded-2xl bg-card p-8 shadow-(--shadow-lg)">
+      {/* Logo */}
+      <div className="mb-6 text-center">
+        <span className="text-2xl font-bold text-primary tracking-tight">JourneyLog</span>
+      </div>
+
+      <h1 className="text-2xl font-bold text-center">{titles[mode]}</h1>
+      <p className="mt-2 text-sm text-muted-foreground text-center">
+        {subtitles[mode]}
       </p>
 
-      <form action={handleSubmit} className="mt-6 space-y-4">
+      <form action={handleSubmit} className="mt-8 space-y-5">
         {mode === "register" && (
           <div className="space-y-2">
             <Label htmlFor="name">Nama</Label>
@@ -103,7 +112,11 @@ export function AuthForm({ mode, token }: { mode: AuthMode; token?: string }) {
           <input type="hidden" name="token" value={token} />
         )}
 
-        {error && <p className="text-sm text-destructive">{error}</p>}
+        {error && (
+          <div className="rounded-xl bg-[#f9dedc] px-4 py-3 text-sm text-[#410e0b]">
+            {error}
+          </div>
+        )}
 
         <Button type="submit" className="w-full" disabled={pending}>
           {pending
@@ -118,30 +131,30 @@ export function AuthForm({ mode, token }: { mode: AuthMode; token?: string }) {
         </Button>
       </form>
 
-      <div className="mt-4 space-y-2 text-center text-sm">
+      <div className="mt-6 space-y-2 text-center text-sm">
         {mode === "login" && (
           <>
-            <Link href="/forgot-password" className="text-primary hover:underline">
+            <Link href="/forgot-password" className="text-primary font-medium hover:underline">
               Lupa password?
             </Link>
-            <p>
+            <p className="text-muted-foreground">
               Belum punya akun?{" "}
-              <Link href="/register" className="font-medium text-primary hover:underline">
+              <Link href="/register" className="font-bold text-primary hover:underline">
                 Daftar
               </Link>
             </p>
           </>
         )}
         {mode === "register" && (
-          <p>
+          <p className="text-muted-foreground">
             Sudah punya akun?{" "}
-            <Link href="/login" className="font-medium text-primary hover:underline">
+            <Link href="/login" className="font-bold text-primary hover:underline">
               Masuk
             </Link>
           </p>
         )}
         {(mode === "forgot" || mode === "reset") && (
-          <Link href="/login" className="text-primary hover:underline">
+          <Link href="/login" className="text-primary font-medium hover:underline">
             Kembali ke login
           </Link>
         )}

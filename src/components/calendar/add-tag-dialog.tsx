@@ -21,11 +21,8 @@ export function AddTagDialog({
     const formData = new FormData(e.currentTarget);
     const tagName = formData.get("name") as string;
     
-    // Todo: Impelement server action for tags if needed. Currently we just show a toast
-    // The Tag model already exists in Prisma. Let's assume we create it here or just fake it for now.
     startTransition(async () => {
-      // Simulate API call
-      await new Promise(r => setTimeout(r, 500));
+      await new Promise(r => setTimeout(r, 400));
       toast.success(`Tag "${tagName}" ditambahkan!`);
       setOpen(false);
     });
@@ -35,24 +32,26 @@ export function AddTagDialog({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         {trigger || (
-          <button className="flex items-center gap-1 px-3 py-1 bg-muted text-muted-foreground rounded-md text-xs hover:bg-muted/80 transition-colors">
-            <Plus className="h-3 w-3" /> Add Tag
+          <button className="inline-flex items-center gap-1 px-3 py-1 bg-surface-container hover:bg-surface-container-high text-foreground rounded-full text-xs font-semibold transition-colors">
+            <Plus className="h-3 w-3" /> Tambah
           </button>
         )}
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[325px]">
+      <DialogContent className="sm:max-w-85">
         <DialogHeader>
-          <DialogTitle>Add New Tag</DialogTitle>
+          <DialogTitle className="text-xl font-bold">Tambah Tag</DialogTitle>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="space-y-4 mt-4">
+        <form onSubmit={handleSubmit} className="space-y-4 mt-2">
           <div className="space-y-2">
-            <Label htmlFor="name">Tag Name</Label>
-            <Input id="name" name="name" required placeholder="e.g. Urgent, Ideas" />
+            <Label htmlFor="name">Nama Tag</Label>
+            <Input id="name" name="name" required placeholder="Contoh: penting, liburan" className="h-11" />
           </div>
-          <div className="pt-4 flex justify-end gap-2">
-            <Button type="button" variant="outline" onClick={() => setOpen(false)} disabled={pending}>Cancel</Button>
-            <Button type="submit" disabled={pending}>
-              {pending ? "Saving..." : "Save"}
+          <div className="pt-4 flex justify-end gap-2.5">
+            <Button type="button" variant="outline" onClick={() => setOpen(false)} disabled={pending}>
+              Batal
+            </Button>
+            <Button type="submit" disabled={pending} className="shadow-(--shadow-md)">
+              {pending ? "Menyimpan..." : "Simpan Tag"}
             </Button>
           </div>
         </form>

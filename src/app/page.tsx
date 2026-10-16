@@ -2,74 +2,96 @@ import Link from "next/link";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { MapPin, NotebookPen, Dumbbell } from "lucide-react";
+import { MapPin, NotebookPen, Dumbbell, Sparkles } from "lucide-react";
 
 export default async function HomePage() {
   const session = await auth();
   if (session?.user) redirect("/dashboard");
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-accent/30">
-      <header className="mx-auto flex max-w-5xl items-center justify-between px-4 py-6">
-        <span className="text-xl font-bold text-primary">JourneyLog</span>
-        <div className="flex gap-2">
-          <Button variant="ghost" asChild>
+    <div className="min-h-screen bg-background" suppressHydrationWarning>
+      {/* Header */}
+      <header className="mx-auto flex max-w-7xl items-center justify-between px-6 py-6">
+        <span className="text-xl font-bold text-primary tracking-tight">JourneyLog</span>
+        <div className="flex gap-3">
+          <Button variant="ghost" size="sm" asChild>
             <Link href="/login">Masuk</Link>
           </Button>
-          <Button asChild>
+          <Button size="sm" asChild>
             <Link href="/register">Daftar</Link>
           </Button>
         </div>
       </header>
 
-      <main className="mx-auto max-w-5xl px-4 pb-16 pt-8 text-center md:pt-16">
-        <h1 className="text-4xl font-bold tracking-tight md:text-5xl">
-          Satu tempat untuk semua catatanmu
-        </h1>
-        <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
-          Perjalanan, aktivitas harian, dan latihan gym — terorganisir dengan kategori,
-          tag, pencarian cepat, dan dokumentasi foto.
-        </p>
-        <Button size="lg" className="mt-8" asChild>
-          <Link href="/register">Mulai Gratis</Link>
-        </Button>
+      {/* Hero Section */}
+      <main className="mx-auto max-w-7xl px-6 pb-20 pt-12 md:pt-20">
+        <div className="mx-auto max-w-3xl text-center">
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-primary-container px-4 py-2 text-sm font-bold text-on-primary-container">
+            <Sparkles className="h-4 w-4" />
+            Gratis untuk semua orang
+          </div>
+          <h1 className="text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-[57px] lg:leading-16">
+            Satu tempat untuk semua{" "}
+            <span className="text-primary">catatanmu</span>
+          </h1>
+          <p className="mx-auto mt-6 max-w-2xl text-lg leading-7 text-muted-foreground">
+            Perjalanan, aktivitas harian, dan latihan gym — terorganisir dengan kategori,
+            tag, pencarian cepat, dan dokumentasi foto. Buat rumah untuk kenanganmu.
+          </p>
+          <Button size="lg" className="mt-10 px-10 text-base" asChild>
+            <Link href="/register">Mulai Gratis</Link>
+          </Button>
+        </div>
 
-        <div className="mt-16 grid gap-4 text-left sm:grid-cols-3">
+        {/* Feature Cards */}
+        <div className="mt-20 grid gap-6 text-left sm:grid-cols-3">
           <FeatureCard
-            icon={<MapPin className="h-6 w-6 text-sky-600" />}
+            icon={<MapPin className="h-6 w-6" />}
+            color="bg-[#e0f4ff] text-[#00687b]"
             title="Travel"
-            description="Jurnal perjalanan, lokasi, dan foto kenangan."
+            description="Jurnal perjalanan, lokasi, dan foto kenangan yang tersimpan rapi."
           />
           <FeatureCard
-            icon={<NotebookPen className="h-6 w-6 text-emerald-600" />}
+            icon={<NotebookPen className="h-6 w-6" />}
+            color="bg-[#d4f0d4] text-[#1b5e20]"
             title="Daily"
-            description="Catatan harian, to-do, dan rutinitas pribadi."
+            description="Catatan harian, to-do, dan rutinitas pribadi yang mudah diakses."
           />
           <FeatureCard
-            icon={<Dumbbell className="h-6 w-6 text-orange-600" />}
+            icon={<Dumbbell className="h-6 w-6" />}
+            color="bg-[#ffe0cc] text-[#e65100]"
             title="Gym"
-            description="Pelacakan latihan dan progres tubuh."
+            description="Pelacakan latihan dan progres tubuh dalam satu tempat."
           />
         </div>
       </main>
+
+      {/* Footer */}
+      <footer className="border-t border-outline-variant/30 py-8 text-center text-sm text-muted-foreground">
+        <p>© 2026 JourneyLog. Buat rumah untuk kenanganmu.</p>
+      </footer>
     </div>
   );
 }
 
 function FeatureCard({
   icon,
+  color,
   title,
   description,
 }: {
   icon: React.ReactNode;
+  color: string;
   title: string;
   description: string;
 }) {
   return (
-    <div className="rounded-xl border bg-card p-5 shadow-sm">
-      <div className="mb-3">{icon}</div>
-      <h3 className="font-semibold">{title}</h3>
-      <p className="mt-1 text-sm text-muted-foreground">{description}</p>
+    <div className="group rounded-2xl bg-card p-6 shadow-(--shadow-md) transition-all duration-200 hover:shadow-(--shadow-lg) hover:bg-surface-container-low">
+      <div className={`mb-4 inline-flex h-12 w-12 items-center justify-center rounded-2xl ${color}`}>
+        {icon}
+      </div>
+      <h3 className="text-lg font-bold">{title}</h3>
+      <p className="mt-2 text-sm leading-6 text-muted-foreground">{description}</p>
     </div>
   );
 }

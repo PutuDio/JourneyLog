@@ -27,7 +27,7 @@ export function AddListDialog({
         toast.error(result.error);
         return;
       }
-      toast.success("List berhasil dibuat!");
+      toast.success("List baru berhasil dibuat!");
       setOpen(false);
     });
   }
@@ -36,28 +36,30 @@ export function AddListDialog({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         {trigger || (
-          <button className="flex items-center gap-3 px-3 py-2 text-sm rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground transition-colors w-full text-left">
-            <Plus className="h-4 w-4" /> Add New List
+          <button className="flex items-center gap-2.5 px-3 py-2 text-xs font-semibold rounded-xl text-primary hover:bg-primary-container/40 transition-colors w-full text-left mt-1">
+            <Plus className="h-4 w-4" /> Tambah List Baru
           </button>
         )}
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[325px]">
+      <DialogContent className="sm:max-w-90">
         <DialogHeader>
-          <DialogTitle>Add New List</DialogTitle>
+          <DialogTitle className="text-xl font-bold">Buat List Baru</DialogTitle>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="space-y-4 mt-4">
+        <form onSubmit={handleSubmit} className="space-y-4 mt-2">
           <div className="space-y-2">
-            <Label htmlFor="name">List Name</Label>
-            <Input id="name" name="name" required placeholder="e.g. Work, Personal" />
+            <Label htmlFor="name">Nama List</Label>
+            <Input id="name" name="name" required placeholder="Contoh: Pekerjaan, Olahraga" className="h-11" />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="color">Color (Tailwind Class)</Label>
-            <Input id="color" name="color" placeholder="e.g. bg-red-500" defaultValue="bg-blue-500" />
+            <Label htmlFor="color">Warna (Tailwind Class)</Label>
+            <Input id="color" name="color" placeholder="misal: bg-teal-500, bg-rose-500" defaultValue="bg-teal-600" className="h-11" />
           </div>
-          <div className="pt-4 flex justify-end gap-2">
-            <Button type="button" variant="outline" onClick={() => setOpen(false)} disabled={pending}>Cancel</Button>
-            <Button type="submit" disabled={pending}>
-              {pending ? "Saving..." : "Save"}
+          <div className="pt-4 flex justify-end gap-2.5">
+            <Button type="button" variant="outline" onClick={() => setOpen(false)} disabled={pending}>
+              Batal
+            </Button>
+            <Button type="submit" disabled={pending} className="shadow-(--shadow-md)">
+              {pending ? "Menyimpan..." : "Simpan List"}
             </Button>
           </div>
         </form>
