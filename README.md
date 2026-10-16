@@ -36,7 +36,7 @@ Salin `.env.example` ke `.env` dan isi:
 ```env
 DATABASE_URL="postgresql://..."
 AUTH_SECRET="..."   # openssl rand -base64 32
-AUTH_URL="http://localhost:3000"
+AUTH_URL="http://"
 NEXT_PUBLIC_SUPABASE_URL="https://xxx.supabase.co"
 SUPABASE_SERVICE_ROLE_KEY="..."
 NEXT_PUBLIC_SUPABASE_BUCKET="journeylog-images"
