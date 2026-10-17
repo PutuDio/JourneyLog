@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
@@ -12,7 +13,17 @@ export default async function HomePage() {
     <div className="min-h-screen bg-background" suppressHydrationWarning>
       {/* Header */}
       <header className="mx-auto flex max-w-7xl items-center justify-between px-6 py-6">
-        <span className="text-xl font-bold text-primary tracking-tight">JourneyLog</span>
+        <Link href="/" className="group flex items-center gap-3">
+          <Image
+            src="/logo.png"
+            alt="JourneyLog Logo"
+            width={36}
+            height={36}
+            className="h-9 w-9 rounded-xl shadow-xs transition-transform duration-200 group-hover:scale-105"
+            priority
+          />
+          <span className="text-xl font-bold text-primary tracking-tight">JourneyLog</span>
+        </Link>
         <div className="flex gap-3">
           <Button variant="ghost" size="sm" asChild>
             <Link href="/login">Masuk</Link>
@@ -67,7 +78,17 @@ export default async function HomePage() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-outline-variant/30 py-8 text-center text-sm text-muted-foreground">
+      <footer className="border-t border-outline-variant/30 py-8 text-center text-sm text-muted-foreground flex flex-col items-center justify-center gap-3">
+        <div className="flex items-center gap-2">
+          <Image
+            src="/logo.png"
+            alt="JourneyLog Logo"
+            width={24}
+            height={24}
+            className="h-6 w-6 rounded-md shadow-xs"
+          />
+          <span className="font-bold text-foreground">JourneyLog</span>
+        </div>
         <p>© 2026 JourneyLog. Buat rumah untuk kenanganmu.</p>
       </footer>
     </div>

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -34,12 +35,42 @@ export function AppShell({
 
   return (
     <div className="min-h-screen bg-background pb-20 md:pb-0 md:pl-72" suppressHydrationWarning>
+      {/* Mobile Top Header */}
+      <header className="sticky top-0 z-30 flex items-center justify-between border-b border-outline-variant/30 bg-card/90 px-5 py-3 backdrop-blur-md md:hidden">
+        <Link href="/dashboard" className="flex items-center gap-2.5">
+          <Image
+            src="/logo.png"
+            alt="JourneyLog"
+            width={32}
+            height={32}
+            className="h-8 w-8 rounded-lg shadow-xs"
+            priority
+          />
+          <span className="text-lg font-bold text-primary tracking-tight">JourneyLog</span>
+        </Link>
+        {userName && (
+          <span className="text-xs text-muted-foreground truncate max-w-37.5">
+            Halo, {userName} 👋
+          </span>
+        )}
+      </header>
+
       {/* Sidebar */}
       <aside className="fixed bottom-0 left-0 right-0 z-40 border-t border-outline-variant/30 bg-card/95 backdrop-blur-lg md:bottom-auto md:top-0 md:flex md:h-screen md:w-72 md:flex-col md:border-r md:border-t-0 md:shadow-(--shadow-sm)">
         {/* Logo area - desktop */}
         <div className="hidden px-6 py-6 md:block">
-          <Link href="/dashboard" className="text-xl font-bold text-primary tracking-tight">
-            JourneyLog
+          <Link href="/dashboard" className="group flex items-center gap-3">
+            <Image
+              src="/logo.png"
+              alt="JourneyLog Logo"
+              width={36}
+              height={36}
+              className="h-9 w-9 rounded-xl shadow-xs transition-transform duration-200 group-hover:scale-105"
+              priority
+            />
+            <span className="text-xl font-bold text-primary tracking-tight">
+              JourneyLog
+            </span>
           </Link>
           {userName && (
             <p className="mt-2 truncate text-sm text-muted-foreground">Halo, {userName} 👋</p>

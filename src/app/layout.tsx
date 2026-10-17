@@ -10,8 +10,15 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "JourneyLog",
+  title: {
+    default: "JourneyLog",
+    template: "%s | JourneyLog",
+  },
   description: "Catat perjalanan, aktivitas harian, dan progres gym dalam satu aplikasi.",
+  icons: {
+    icon: [{ url: "/logo.png", sizes: "512x512", type: "image/png" }],
+    apple: [{ url: "/logo.png", sizes: "512x512", type: "image/png" }],
+  },
 };
 
 export default function RootLayout({

@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -70,8 +71,18 @@ export function AuthForm({ mode, token }: { mode: AuthMode; token?: string }) {
   return (
     <div className="mx-auto w-full max-w-md rounded-2xl bg-card p-8 shadow-(--shadow-lg)">
       {/* Logo */}
-      <div className="mb-6 text-center">
-        <span className="text-2xl font-bold text-primary tracking-tight">JourneyLog</span>
+      <div className="mb-6 flex justify-center">
+        <Link href="/" className="group flex flex-col items-center gap-2">
+          <Image
+            src="/logo.png"
+            alt="JourneyLog Logo"
+            width={48}
+            height={48}
+            className="h-12 w-12 rounded-2xl shadow-xs transition-transform duration-200 group-hover:scale-105"
+            priority
+          />
+          <span className="text-2xl font-bold text-primary tracking-tight">JourneyLog</span>
+        </Link>
       </div>
 
       <h1 className="text-2xl font-bold text-center">{titles[mode]}</h1>
